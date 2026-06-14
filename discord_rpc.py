@@ -9,7 +9,7 @@ from typing import Optional
 
 logger = logging.getLogger(__name__)
 
-DISCORD_CLIENT_ID = "1511127624607596724"
+from config import DISCORD_CLIENT_ID
 
 
 class DiscordRPC:
