@@ -87,7 +87,12 @@ class DiscordRPC:
                 return
 
         details = f"{title} — {artist}"[:128]
-        state = (current_lyric if current_lyric and current_lyric != "♪" else f"♪  {album}")[:128]
+        if current_lyric and current_lyric != "♪":
+            state = current_lyric[:128]
+        elif current_lyric == "♪":
+            state = "• • •"
+        else:
+            state = f"♪  {album}"[:128]
 
         # Skip update jika lirik tidak berubah
         if not force and details == self._last_details and state == self._last_state:
@@ -119,6 +124,12 @@ class DiscordRPC:
                 "artist_ids": ["1"],
             },
             "flags": 48,
+"buttons": [
+                {
+                    "label": "Listen to this song",
+                    "url": f"https://music.apple.com/search?term={_urlencode(title + ' ' + artist)}"
+                }
+            ],
         }
 
         payload = {
@@ -132,7 +143,9 @@ class DiscordRPC:
 
         try:
             self._send(1, payload)
-            self._recv()
+            resp = self._recv()
+            if resp and resp.get("evt") == "ERROR":
+                logger.warning(f"Discord error: {resp}")
             self._last_track_key = f"{title}||{artist}"
             self._last_details = details
             self._last_state = state
@@ -157,6 +170,10 @@ class DiscordRPC:
         except Exception as e:
             logger.warning(f"RPC clear failed: {e}")
             self._reconnect()
+
+def _urlencode(text: str) -> str:
+    import urllib.parse
+    return urllib.parse.quote(text)
 
 
 def _fmt_time(seconds: float) -> str:
