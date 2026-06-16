@@ -6,13 +6,9 @@ A macOS menu bar app that displays real-time Apple Music lyrics as Discord Rich 
 
 <img width="443" height="157" alt="image" src="https://github.com/user-attachments/assets/10ad6a3b-f9f5-43b4-9806-d32a3127f253" />
 
-
-
 In the macOS menu bar:
 
-<img width="173" height="286" alt="image" src="https://github.com/user-attachments/assets/bdff681c-0042-4846-b224-5d9d509a6a92" />
-
-
+<img width="316" height="286" alt="image" src="https://github.com/user-attachments/assets/5692322b-c7de-42a1-a6ff-11c6db6454a1" />
 
 ---
 
